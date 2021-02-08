@@ -2813,7 +2813,7 @@ components:
           example:
             - unit: "lovelace"
               quantity: "42000000"
-            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+            - unit: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3.6e7574636f696e"
               quantity: "12"
         fees:
           type: string
@@ -2903,7 +2903,7 @@ components:
                 example:
                   - unit: "lovelace"
                     quantity: "42000000"
-                  - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+                  - unit: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3.6e7574636f696e"
                     quantity: "12"
             required:
               - address
@@ -2932,7 +2932,7 @@ components:
                 example:
                   - unit: "lovelace"
                     quantity: "42000000"
-                  - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+                  - unit: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3.6e7574636f696e"
                     quantity: "12"
             required:
               - address
@@ -3320,7 +3320,7 @@ components:
           example:
             - unit: "lovelace"
               quantity: "42000000"
-            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+            - unit: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3.6e7574636f696e"
               quantity: "12"
         stake_address:
           type: string
@@ -3354,7 +3354,7 @@ components:
           example:
             - unit: "lovelace"
               quantity: "42000000"
-            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+            - unit: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3.6e7574636f696e"
               quantity: "12"
         sent_sum:
           type: array
@@ -3371,7 +3371,7 @@ components:
           example:
             - unit: "lovelace"
               quantity: "42000000"
-            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+            - unit: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3.6e7574636f696e"
               quantity: "12"
         tx_count:
           type: integer
@@ -3425,7 +3425,7 @@ components:
           amount:
             - unit: "lovelace"
               quantity: "42000000"
-            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+            - unit: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3.6e7574636f696e"
               quantity: "12"
           block: "5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7"
     address_txs_content:
