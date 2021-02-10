@@ -93,6 +93,7 @@ tags:
   - name: Pools
   - name: Accounts
   - name: Addresses
+  - name: Assets
 
 paths:
   /:
@@ -2278,6 +2279,92 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /assets/:
+    get:
+      tags:
+        - Assets
+      summary: Assets
+      description: List of minted assets
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the list of minted assets.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/assets"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /assets/{asset}/history:
+    get:
+      tags:
+        - Assets
+      summary: Asset history
+      description: History of an asset
+      parameters:
+        - in: path
+          name: asset
+          required: true
+          schema:
+            type: string
+          description: CIP14 asset fingerprint
+          example: "token1hv4p5tv2a837mzqrst04d0dcptdjmluq8800f9"
+      responses:
+        "200":
+          description: Return the history of an asset.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/asset_history"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /metrics/:
     get:
       tags:
@@ -3874,6 +3961,80 @@ components:
             { "date": 1612523884, "calls": 4, "endpoint": "epoch" },
             { "date": 1612553884, "calls": 89794, "endpoint": "block" },
           ]
+
+    assets:
+      type: array
+      items:
+        type: object
+        properties:
+          fingerprint:
+            type: string
+            description: CIP14 defined asset fingerprint
+          policy_id:
+            type: string
+            description: Hex-encoded ID of the minting policy
+            example: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3"
+          asset_name:
+            nullable: true
+            type: string
+            description: Hex-encoded asset name
+            example: "6e7574636f696e"
+          quantity:
+            type: string
+            default: Quantity of asset in circulation
+        required:
+          - policy_id
+          - asset_name
+          - quantity
+      example:
+        - {
+            "fingerprint": "token1aqrdypg669jgazruv5ah07nuyqe0wxjhjqs49a",
+            "policy_id": "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3",
+            "asset_name": "6e7574636f696e",
+            "quantity": "1",
+          }
+        - {
+            "fingerprint": "token1hv4p5tv2a837mzqrst04d0dcptdjmluq8800f9",
+            "policy_id": "9cebd568ac4ad908cdd2d45a52327fc4711911054c9951b90a603303",
+            "asset_name": null,
+            "quantity": "1200000",
+          }
+        - {
+            "fingerprint": "token1rjklcrnsdzqp65wjgrg55sy9723kw09m5z9489",
+            "policy_id": "ecd07b4ef62f37a68d145de8efd60c53d288dd5ffc641215120cc3db",
+            "asset_name": "544553544e45544e465430303076303033",
+            "quantity": "0",
+          }
+
+    asset_history:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
+          minted_amount:
+            type: string
+            default: Amount that has been minted or burned
+        required:
+          - time
+          - asset_name
+          - fingerprint
+          - quantity
+      example:
+        - {
+            "tx_hash": "14b63110d7ba3ddf840bd2d47b8b9597b2e6c908fb87f48f79d26c140ca861b2",
+            "minted_amount": "10",
+          }
+        - {
+            "tx_hash": "1f675772dbba67a44a75e4d8220de797543fb7423c2f54bf55d74f418e48f6fd",
+            "minted_amount": "-5",
+          }
+        - {
+            "tx_hash": "ffe6f8bd883cdf75cbdf8c243aff39961ebc110e1416eff653fa42a24dda6774",
+            "minted_amount": "2",
+          }
 
     empty_object:
       type: object
